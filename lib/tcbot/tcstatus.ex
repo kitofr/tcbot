@@ -27,10 +27,21 @@ defmodule Tcbot.Tcstatus do
     System.halt(2)
   end
 
-  def convert_to_hashdicts([{k,v}]), do: { :"#{k}", v }
+  def to_atom(v) when is_binary(v) do
+    binary_to_atom(v)
+  end
+    
+  def convert_to_hashdicts({k,v}) when !is_list v do
+    { to_atom(k), v }
+  end
+  def convert_to_hashdicts({k,v}) when is_list v do
+    { to_atom(k), convert_to_hashdicts(v) }
+  end
+  def convert_to_hashdicts([head]) do
+    [ convert_to_hashdicts(head) ]
+  end
   def convert_to_hashdicts([head|tail]) do
-    { convert_to_hashdicts(head), convert_to_hashdicts(tail) }
-    #list |> Enum.map(fn({k,v}) -> { :"#{k}", v } end)
+    [ convert_to_hashdicts(head), convert_to_hashdicts(tail) ]
   end
 
   def projects do
