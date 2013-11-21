@@ -12,6 +12,6 @@ defmodule TcbotTest do
     exct = [{:project, 
             [[{:id, "_Root"}, {:name, "<Root project>"}, {:href, "/guestAuth/app/rest/projects/id:_Root"}],
             [{:id, "AmazonApiClient"}, {:name, "Amazon API client"}, {:href, "/guestAuth/app/rest/projects/id:AmazonApiClient"}]]}]
-    assert convert_to_hashdicts(json) == exct
+    assert convert_to_hashdicts(json) === exct
   end
 end

@@ -32,15 +32,19 @@ defmodule Tcbot.Tcstatus do
   end
     
   def convert_to_hashdicts({k,v}) when !is_list v do
-    { to_atom(k), v }
+    IO.puts "{k,v}"
+    [ to_atom(k), v ]
   end
   def convert_to_hashdicts({k,v}) when is_list v do
+    IO.puts "{k,list v}"
     { to_atom(k), convert_to_hashdicts(v) }
   end
   def convert_to_hashdicts([head]) do
+    IO.puts "head"
     [ convert_to_hashdicts(head) ]
   end
   def convert_to_hashdicts([head|tail]) do
+    IO.puts "head|tail"
     [ convert_to_hashdicts(head), convert_to_hashdicts(tail) ]
   end
 
